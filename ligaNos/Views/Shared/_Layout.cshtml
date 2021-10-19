@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>LigaNos &mdash;</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+    <link rel="stylesheet" href="~/Website/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="~/Website/lib/font-awesome/css/all.min.css" />
+
+    <link rel="stylesheet" href="~/Website/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Website/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/Website/css/jquery-ui.css">
+    <link rel="stylesheet" href="~/Website/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Website/css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" href="~/Website/css/aos.css">
+
+    <link rel="stylesheet" href="~/Website/css/style.css">
+
+
+
+</head>
+<body>
+
+
+
+    <div class="site-wrap">
+
+
+        <header class="site-navbar absolute transparent" role="banner">
+
+         
+            <nav class="site-navigation position-fixed text-right bg-black text-md-right" role="navigation" 
+                  style="width: 100%; height:90px; display: flex; justify-content: space-around; align-items: center">
+
+                <div class="container position-relative">
+
+                    <div class="site-logo" style="margin-top: 2.5px">
+                        <a href="index.html"><img style="height:60px;" src="~/Website/images/img/ligaBola.png" alt=""></a>
+                    </div>
+
+                    <div class="d-inline-block d-md-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+
+                    <ul class="site-menu js-clone-nav d-none d-md-block">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Teams">Teams</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Matches">Matches</a></li>
+                        <li class="has-children">
+                            <a asp-area="" asp-controller="Home" asp-action="GamesResults">Results</a>
+                            <ul class="dropdown">
+                                <li><a asp-area="" asp-controller="Home" asp-action="GamesResults">Games Results</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Ratings">Ratings</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Statistics">Statistics</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="index.html">Pages</a>
+                            <ul class="dropdown arrow-top">
+                                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                                @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
+                                {
+                                    <li class="has-children">
+                                        <a asp-area="" asp-controller="Dashboard" asp-action="Index">Admin Workspace</a>
+                                        <ul class="dropdown">
+                                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employers Management</a></li>
+                                            <li><a asp-area="" asp-controller="ClubManager" asp-action="ClubManagerList">Teams Management</a></li>
+                                            <li><a asp-area="" asp-controller="Matches" asp-action="GamesResults">Matches Management</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("TeamManager"))
+                                {
+                                    <li class="has-children">
+                                        <a asp-area="" asp-controller="Dashboard" asp-action="Index">Club Management</a>
+                                        <ul class="dropdown">
+                                            <li><a asp-area="" asp-controller="Club" asp-action="Edit">Club</a></li>
+                                            <li><a asp-area="" asp-controller="Club" asp-action="DetailsWStaff">Staff</a></li>
+                                            <li><a asp-area="" asp-controller="Club" asp-action="Details">Players</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("GamesManager"))
+                                {
+
+                                    <li class="has-children">
+                                        <a asp-area="" asp-controller="Dashboard" asp-action="Index">Games Management</a>
+                                        <ul class="dropdown">
+                                            <li><a asp-area="" asp-controller="Matches" asp-action="Matches">Calendar</a></li>
+                                            <li><a asp-area="" asp-controller="Matches" asp-action="GamesResults">Game Results</a></li>
+                                        </ul>
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="news.html"><link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" /><i class="fas fa-user"></i></a>
+                            <ul class="dropdown arrow-top">
+
+                                @if (this.User.Identity.IsAuthenticated)
+                                {
+                                    <li><a asp-area="" asp-controller="User" asp-action="Logout">Logout</a></li>
+                                    <li><a asp-area="" asp-controller="User" asp-action="ChangeUser">Profile</a></li>
+                                }
+                                else
+                                {
+                                    <li><a asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
+                                    <li><a asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
+                                }
+
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        @*  <div class="container">*@
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+        @* </div>*@
+
+
+    </div>
+
+    <footer class="site-footer border-top" style="background-color:black">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-lg-4">
+                    <div class="mb-5">
+                        <h3 class="footer-heading mb-4">Liga Nos</h3>
+                        <p> The top professional association football division of the Portuguese football league system.</p>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <h3 class="footer-heading mb-4">Quick Menu</h3>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <ul class="list-unstyled">
+                                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Teams">Teams</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Matches">Calendar</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="GamesResults">Results</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <ul class="list-unstyled">
+                                <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Statistics">Statistics</a></li>
+                                <li><a asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
+                                <li><a asp-area="" asp-controller="User" asp-action="ChangeUser">Profile</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="mb-5">
+               
+
+                        <div class="block-16">
+                            <figure>
+                                <img style="height: 110px; width: auto; margin-left:15%" src="~/images/img/logo5.png" alt="Image placeholder" class="img-fluid rounded">
+                                
+                                @*<a href="https://vimeo.com/channels/staffpicks/93951774" class="play-button popup-vimeo"><span class="icon-play"></span></a>*@
+                            </figure>
+                            <figure>
+                                <img style="height:90px; width:auto" src="~/images/img/liga.jpg" alt="Image placeholder" class="img-fluid rounded">
+                            </figure>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/Website/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Website/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="~/Website/js/jquery-ui.js"></script>
+    <script src="~/Website/js/popper.min.js"></script>
+    <script src="~/Website/js/bootstrap.min.js"></script>
+    <script src="~/Website/js/owl.carousel.min.js"></script>
+    <script src="~/Website/js/jquery.stellar.min.js"></script>
+    <script src="~/Website/js/jquery.countdown.min.js"></script>
+    <script src="~/Website/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Website/js/aos.js"></script>
+
+    <script src="~/Website/js/main.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+   
+
+</html>

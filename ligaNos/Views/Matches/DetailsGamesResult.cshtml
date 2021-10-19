@@ -1,0 +1,202 @@
+﻿@model ligaNos.Models.GameResultsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+<div id="main-wrapper">
+    <div class="page-wrapper" style="background-color:white; margin-left:20%; margin-right:20%; padding-top:5%">
+        <h1 style=" font-family:'Times New Roman', Times, serif">Game Results</h1>
+
+
+        <div>
+
+        </div>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <th>Employee</th>
+                    }
+                    <th>Home Team</th>
+                    <th>
+                    </th>
+                    <th>
+                        Goals
+                    </th>
+                    <th>
+                        Yellow Cards
+                    </th>
+                    <th>
+                        Red Cards
+                    </th>
+                    <th>
+                        Game Pontuation
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in Model..OrderBy(c => c.FirstName))
+                {*@
+                <tr>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.User.FirstName)
+                        </td>
+                    }
+                    <td>
+
+                        <img src="@Url.Content(Model.ImageUrlHome)" alt="Image" style="width: 100px; height: 150px ; max-width: 100%;  height: auto" />
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.HomeTeam.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.MGHome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.YCHome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.RCHome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.PontuationHome)
+                    </td>
+
+                    @if (Model.Played == false)
+                    {
+                        <td id="@Model.Id">
+                            <a asp-action="EditResultHome" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                            @*<a asp-action="DetailsPlayer" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                            <a asp-action="DeletePlayer" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>*@
+                        </td>
+                    }
+
+                </tr>
+                @*}*@
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <th>Employee</th>
+                    }
+                    <th>Away Team</th>
+                    <th>
+                    </th>
+                    <th>
+                        Goals
+                    </th>
+                    <th>
+                        Yellow Cards
+                    </th>
+                    <th>
+                        Red Cards
+                    </th>
+                    <th>
+                        Game Pontuation
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var item in Model..OrderBy(c => c.FirstName))
+                {*@
+                <tr>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.User.FirstName)
+                        </td>
+                    }
+                    <td>
+
+                        <img src="@Url.Content(Model.ImageUrlAway)" alt="Image" style="width: 100px; height: 150px ; max-width: 100%;  height: auto" />
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.AwayTeam.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.MGAway)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.YCAway)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.RCAway)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.PontuationAway)
+                    </td>
+
+                    @if (Model.Played == false)
+                    {
+                        <td id="@Model.Id">
+                            <a asp-action="EditResultHome" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                         
+                        </td>
+                    }
+
+                </tr>
+                @*}*@
+            </tbody>
+        </table>
+        <a asp-action="GamesResults" class="btn btn-danger">Back to List</a>
+        @if (this.User.IsInRole("Admin") && Model.Played == false)
+        {
+            <div>
+                @*<a asp-action="AddPlayers" asp-route-id="@Model.Id" class="btn btn-info">Confirm Home Team Results</a>*@
+                <a asp-action="ConfirmResults" asp-route-id="@Model.IdMatch" class="btn btn-info">Confirm Teams Results</a>
+            </div>
+        }
+        @*<div id="deleteDialog" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+                        <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete the city?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+                        <button type="button" class="btn btn-success" id="btnNoDelete">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>
+@*@section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+            <script type="text/javascript">
+    $(document).ready(function () {
+                    var id = 0;
+                    $('a[id*=btnDelete]').click(function () {
+                        debugger;
+                        id = $(this).parent()[0].id;
+                        $("#deleteDialog").modal('show');
+                        return false;
+                    });
+                    $("#btnNoDelete").click(function () {
+                        $("#deleteDialog").modal('hide');
+                        return false;
+                    });
+                    $("#btnYesDelete").click(function () {
+                        window.location.href = '/Countries/DeleteCity/' + id;
+                    });
+                });</script>
+        }*@

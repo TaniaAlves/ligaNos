@@ -1,0 +1,131 @@
+﻿
+@model List<ligaNos.Models.GameResultsViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+<div id="main-wrapper">
+    <div class="page-wrapper" style="background-color:white; margin-left:20%; margin-right:5%; padding-top:5%">
+        <h1 style=" font-family: 'Times New Roman', Times, serif; text-align: center;">Games Results</h1>
+
+      
+        <div>
+            @*@if (Model.Count() != 0)
+            {
+                <a asp-action="DeleteTemps" class="btn btn-danger" id="btnDelete">Delete Results</a>
+
+            }*@
+
+        </div>
+        <table class="table" id="MyTable">
+            <thead>
+                <tr>
+                    <th> Game Id </th>
+                    <th> Home Team </th>
+                    <th>   </th>
+                    <th> Goals</th>
+                    <th> vs </th>
+                    <th>   Goals  </th>
+                    <th>  </th>
+                    <th>  Away Team</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdMatch)
+                        </td>
+                        <td>
+                            @if (!String.IsNullOrEmpty(item.ImageUrlHome))
+                            {
+                                <img src="@Url.Content(item.ImageUrlHome)" alt="Image" style="width: 70px; height: 70px ; max-width: 100%;  height: auto" />
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HomeTeam.Name)
+                        </td>
+                        <td><b>
+    @Html.DisplayFor(modelItem => item.MGHome)
+</b>
+                           
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td><b>  @Html.DisplayFor(modelItem => item.MGAway) </b>
+                           
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AwayTeam.Name)
+                        </td>
+                        <td>
+                            @if (!String.IsNullOrEmpty(item.ImageUrlAway))
+                            {
+                                <img src="@Url.Content(item.ImageUrlAway)" alt="Image" style="width: 70px; height: 70px ; max-width: 100%;  height: auto" />
+                            }
+                        </td>
+                        <td id="@item.Id">
+                            @*<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>*@
+                            @if (item.Played == false && this.User.IsInRole("GamesManager"))
+                            {
+                                <a asp-action="DetailsGamesResult" asp-route-id="@item.IdMatch" class="btn btn-info">
+                                    Add Results
+                                </a>
+                            }
+                            else if (item.Played == false && this.User.IsInRole("Admin"))
+                            {
+                                <a asp-action="DetailsGamesResult" asp-route-id="@item.IdMatch" class="btn btn-info">
+                                    Confirm Results
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-action="DetailsGamesResult" asp-route-id="@item.IdMatch" class="btn btn-info">
+                                    Details
+                                </a>
+                            }
+
+
+
+
+                            @*<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @* } *@
+
+        <div id="deleteDialog" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+                        <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete the country?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+                        <button type="button" class="btn btn-success" id="btnNoDelete">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+        });
+    </script>
+}

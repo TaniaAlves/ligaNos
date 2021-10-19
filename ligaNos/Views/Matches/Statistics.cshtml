@@ -1,0 +1,191 @@
+﻿
+@model List<ligaNos.Models.ClubResultsViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+<div id="main-wrapper">
+    <div class="page-wrapper" style="background-color:white; margin-left:20%; margin-right:5%; padding-top:5%">
+        <h1 style=" font-family: 'Times New Roman', Times, serif; text-align: center">Statistics</h1>
+
+        @if (this.User.IsInRole("TeamManager"))
+        {
+            <h2 style="margin-top:5%"> Our Results</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> Team </th>
+                        <th> Marked Goals </th>
+                        <th> Suffered Goals </th>
+                        <th> Yellow Cards </th>
+                        <th> Red Cards </th>
+                        <th> Victorys </th>
+                        <th> Ties </th>
+                        <th> Losts </th>
+                        <th>Pontuation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        @if (item.Club.Id == item.User.Clubs.FirstOrDefault().Id)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Club.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MarkedGoals)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SufferedGoals)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.YellowCards)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RedCards)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Victorys)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ties)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Losts)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Pontuation)
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+            </table>
+        }
+
+    <div style="display:grid; grid-gap:60px;
+grid-template-columns:1fr 1fr; grid-row-gap:60px; margin-top:5%">
+        @for (int i = 0; i < 2; i++)
+        {
+
+            @if (i == 0)
+            {
+                <h2 style="margin-bottom:3%; margin-left:40%"><b> Best Scorers </b></h2>
+            }
+            else
+            {
+                <h2 style="margin-bottom: 3%; margin-left:40%"> <b>Cards</b></h2>
+            }
+        }
+
+
+    </div>
+
+        <div style="display:grid; grid-gap:60px;
+grid-template-columns:1fr 1fr; grid-row-gap:60px; margin-top:5%">
+            @for (int i = 0; i < 2; i++)
+            {
+
+                @if (i == 0)
+                {
+                    @*<h2> Best Scorers</h2>*@
+                    <table class="table" id="MyTable">
+                        <thead>
+                            <tr>
+                                <th> Team </th>
+                                <th> Goals </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Club.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MarkedGoals)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+
+                }
+                else
+                {
+                    @*<h2 style="margin-top:5%"> Cards</h2>*@
+                    <table class="table" id="MyTable2">
+                        <thead>
+                            <tr>
+                                <th> Team </th>
+                                <th> Yellow Cards </th>
+                                <th> Red Cards </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Club.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.YellowCards)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RedCards)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+
+
+        </div>
+
+
+
+
+        <div id="deleteDialog" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+                        <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete the country?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+                        <button type="button" class="btn btn-success" id="btnNoDelete">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable2').DataTable();
+        });
+    </script>
+}
+

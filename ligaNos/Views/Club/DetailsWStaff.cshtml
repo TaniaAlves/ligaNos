@@ -1,0 +1,133 @@
+﻿@model ligaNos.Data.Entities.Club
+@{
+    ViewData["Title"] = "Details";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+<div id="main-wrapper">
+    <div class="page-wrapper" style="background-color:white; margin-left:20%; margin-right:20%; padding-top:5%">
+        <h1 style="text-align:center; font-family:'Times New Roman', Times, serif">Our Staff</h1>
+
+        <div>
+            @*<h4>Our Players</h4>*@
+            <hr />
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NumberStaff)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NumberStaff)
+                </dd>
+            </dl>
+        </div>
+        <div>
+           
+            <a asp-action="AddStaff" asp-route-id="@Model.Id" class="btn btn-info">Add Staff</a>
+
+          
+        </div>
+        <div>
+          
+        </div>
+        <h4 style="margin-top:5%">Staff</h4>
+        @if (Model.Staffs == null || Model.Staffs.Count == 0)
+        {
+            <h5>There´s no employees added yet</h5> }
+        else
+        {
+            <table class="table" id="MyTable">
+                <thead>
+                    <tr>
+                        <th>Picture</th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.Players.FirstOrDefault().FirstName)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Staffs.FirstOrDefault().FullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Staffs.FirstOrDefault().Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Staffs.FirstOrDefault().PostalCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Staffs.FirstOrDefault().TaxNumber)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.Staffs.FirstOrDefault().Occupation)
+                            </th>*@
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Staffs.OrderBy(c => c.FirstName))
+                    {
+                        <tr>
+                            <td>
+
+                                <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width: 100px; height: 150px ; max-width: 100%;  height: auto" />
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PostalCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TaxNumber)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.Occupation)
+                                </td>*@
+
+                            <td id="@item.Id">
+                                <a asp-action="EditStaff" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                <a asp-action="DetailsStaff" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                                <a asp-action="DeleteStaff" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>}
+
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+        });
+    </script>
+}
+@*@section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+            <script type="text/javascript">
+    $(document).ready(function () {
+                    var id = 0;
+                    $('a[id*=btnDelete]').click(function () {
+                        debugger;
+                        id = $(this).parent()[0].id;
+                        $("#deleteDialog").modal('show');
+                        return false;
+                    });
+                    $("#btnNoDelete").click(function () {
+                        $("#deleteDialog").modal('hide');
+                        return false;
+                    });
+                    $("#btnYesDelete").click(function () {
+                        window.location.href = '/Countries/DeleteCity/' + id;
+                    });
+                });</script>
+        }*@

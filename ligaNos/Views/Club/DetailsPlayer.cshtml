@@ -1,0 +1,89 @@
+﻿@model ligaNos.Models.PlayersViewModel 
+
+@{
+    ViewData["Title"] = "DetailsPlayer";
+}
+
+
+<div id="main-wrapper">
+    <div class="page-wrapper" style="background-color:white; margin-left:20%; margin-right:5%; padding-top:5%">
+        <h1 style=" font-family:'Times New Roman', Times, serif">Details Player</h1>
+
+        <hr />
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.FullName)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Number)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Number)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Positions)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PositionName)
+                            </dd>
+
+                            @*<dd>
+                    <img src="@Url.Content(Model.ImageUrl)" alt="Image" />
+                </dd>*@
+                        </dl>
+
+                    </td>
+
+                    <td>
+                        <div class="col-md-4">
+                            @if (!String.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width: 600px; height: 850px ; max-width: 100%;  height: auto" />
+                            }
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @*<div class="col-md-4">
+            @if (!String.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width: 300px; height: 450px ; max-width: 100%;  height: auto" />
+            }
+        </div>*@
+        <div>
+            @*<a asp-action="EditPlayer" asp-route-id="@Model.PlayerId" class="btn btn-warning">Edit</a>*@
+            @*<a asp-action="AddClub" asp-route-id="@Model.Id" class="btn btn-info">Add Club</a>*@
+            <a asp-action="Details" class="btn btn-danger">Back to List</a>
+
+        </div>
+
+
+
+        <div id="deleteDialog" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+                        <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete the city?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+                        <button type="button" class="btn btn-success" id="btnNoDelete">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

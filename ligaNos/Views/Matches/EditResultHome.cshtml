@@ -1,0 +1,81 @@
+﻿@model ligaNos.Models.GameResultsViewModel
+@{
+    ViewData["Title"] = "EditResults";
+}
+
+<div id="main-wrapper">
+    <div class="page-wrapper" style="background-color:white; margin-left:20%; margin-right:20%; padding-top:5%">
+        <h1 style=" font-family:'Times New Roman', Times, serif"> Results</h1>
+
+
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="EditResultHome" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @*<input type="hidden" asp-for="IdMatch" />*@
+
+                    <h2> Club At Home</h2>
+                    <div class="form-group">
+                        <label asp-for="MGHome" class="control-label"> Goals</label>
+                        <input asp-for="MGHome" class="form-control" />
+                        <span asp-validation-for="MGHome" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="YCHome" class="control-label"> Yellow Cards</label>
+                        <input asp-for="YCHome" class="form-control" />
+                        <span asp-validation-for="YCHome" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RCHome" class="control-label">Red Cards</label>
+                        <input asp-for="RCHome" class="form-control" />
+                        <span asp-validation-for="RCHome" class="text-danger"></span>
+                    </div>
+
+                    <hr />
+                    <h2> Invited Club</h2>
+                    <div class="form-group">
+                        <label asp-for="MGAway" class="control-label"> Goals</label>
+                        <input asp-for="MGAway" class="form-control" />
+                        <span asp-validation-for="MGAway" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="YCAway" class="control-label"> Yellow Cards</label>
+                        <input asp-for="YCAway" class="form-control" />
+                        <span asp-validation-for="YCAway" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RCAway" class="control-label">Red Cards</label>
+                        <input asp-for="RCAway" class="form-control" />
+                        <span asp-validation-for="RCAway" class="text-danger"></span>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        @*<a asp-action="Details" class="btn btn-success">Back to List</a>*@
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                @if (!String.IsNullOrEmpty(Model.ImageUrlHome))
+                {
+                    <img src="@Url.Content(Model.ImageUrlHome)" alt="Image" style="width: 200px; height: 350px ; max-width: 100%;  height: auto" />
+                }
+                @if (!String.IsNullOrEmpty(Model.ImageUrlAway))
+                {
+                    <img src="@Url.Content(Model.ImageUrlAway)" alt="Image" style="margin-top: 20px; width: 200px; height: 350px ; max-width: 100%;  height: auto" />
+                }
+            </div>
+            <div class="col-md-4">
+              
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
+

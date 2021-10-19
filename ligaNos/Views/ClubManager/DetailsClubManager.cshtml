@@ -1,0 +1,152 @@
+﻿@model ligaNos.Data.Entities.User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div id="main-wrapper">
+    <div class="page-wrapper" style="background-color:white; margin-left:20%; margin-right:5%; padding-top:5%">
+        <h1 style=" font-family: 'Times New Roman', Times, serif; text-align: center">Club Managers</h1>
+
+        <hr />
+        <div>
+          
+        
+            <table>
+                <tr>
+                    <td>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.FullName)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Address)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Address)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PostalCode)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PostalCode)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.PhoneNumber)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.PhoneNumber)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TaxNumber)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.TaxNumber)
+                            </dd>
+                        </dl>
+                    </td>
+                    <td style="padding-left:20%">
+                        <dl>
+                            <dd>
+                                <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width: 300px; height: 450px ; max-width: 100%;  height: auto" />
+
+
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+                </table>
+        </div>
+        <div>
+            <a asp-action="EditClubManager" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+            <a asp-action="AddClub" asp-route-id="@Model.Id" class="btn btn-info">Add Club</a>
+            <a asp-action="ClubManagerList" class="btn btn-danger">Back to List</a>
+
+        </div>
+
+        <h4 style="margin-top:5%">Club</h4>
+        @if (Model.Clubs == null || Model.Clubs.Count == 0)
+        {
+            <h5>No club added yet</h5> }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Logo</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clubs.FirstOrDefault().Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clubs.FirstOrDefault().Stadium)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clubs.FirstOrDefault().Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clubs.FirstOrDefault().PostalCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Clubs.FirstOrDefault().Email)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Clubs.OrderBy(c => c.Name))
+                    {
+                    <tr>
+                        <td>
+                            @if (!String.IsNullOrEmpty(item.ImageUrl))
+                            {
+                                <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width: 100px; height: 150px ; max-width: 100%;  height: auto" />
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Stadium)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostalCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td id="@item.Id">
+                            <a asp-action="EditClub" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                            <a asp-action="DeleteClub" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <div id="deleteDialog" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+                        <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to delete the city?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+                        <button type="button" class="btn btn-success" id="btnNoDelete">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
